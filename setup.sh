@@ -28,3 +28,9 @@ if ! grep -q 'git-completion.bash' "${profile_file}" ; then
 	echo "source \"$HOME/.git-prompt.sh\"" >> "${profile_file}"
 fi
 
+# Setup git with some config
+echo "Setting up git with some global configs"
+source <(git config --global user.name "Chris Wendt")
+source <(git config --global core.editor "vim")
+source <(git config --global color.ui true)
+
