@@ -8,6 +8,8 @@ else
 	profile_file="$HOME/.bash_profile"
 fi
 
+source <(touch "${profile_file}")
+
 # Setup PS1 to keep things short and sweet
 if ! grep -q 'export PS1' "${profile_file}"; then
 	echo "Editing ${profile_file} to fix shell prompt"
@@ -41,3 +43,4 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 	source <(cp gitignore_global_darwin ~/.gitignore_global)
 fi
 
+source profile_file
