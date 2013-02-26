@@ -14,7 +14,14 @@ if ! grep -q 'export PS1' "${profile_file}"; then
 	echo "export PS1='\W$(__git_ps1 "(%s)") $ '" >> "${profile_file}"
 fi
 
-# Setup git-completion.bash to show current commit
+# Setup git-completion.bash and .git-prompt.sh
+
+# Download from github
+source <(curl -o ~/.git-completion.bash https://raw.github.com/git/git/master/contrib/completion/git-completion.bash)
+
+source <(curl -o ~/.git-prompt.sh https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh)
+
+# write to bash profile
 if ! grep -q 'git-completion.bash' "${profile_file}" ; then
 	echo "Editing ${profile_file} to load ~/.git-completion.bash and ~/.git-prompt.sh on Terminal launch"
 	echo "source \"$HOME/.git-completion.bash\"" >> "${profile_file}"
