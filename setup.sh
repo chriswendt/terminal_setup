@@ -34,3 +34,10 @@ source <(git config --global user.name "Chris Wendt")
 source <(git config --global core.editor "vim")
 source <(git config --global color.ui true)
 
+# Setup git with a gitignore_global file
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+	source <(cp gitignore_global_linux ~/.gitignore_global)
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+	source <(cp gitignore_global_darwin ~/.gitignore_global)
+fi
+
