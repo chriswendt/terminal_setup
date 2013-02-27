@@ -8,20 +8,15 @@ else
 	profile_file="$HOME/.bash_profile"
 fi
 
+# just in case it doesn't exist
 source <(touch "${profile_file}")
-
-# Setup PS1 to keep things short and sweet
-if ! grep -q 'export PS1' "${profile_file}"; then
-	echo "Editing ${profile_file} to fix shell prompt"
-	echo "export PS1='\W$(__git_ps1 "(%s)") $ '" >> "${profile_file}"
-fi
 
 # Setup git-completion.bash and .git-prompt.sh
 
-# Download from github
-source <(curl -o ~/.git-completion.bash https://raw.github.com/git/git/master/contrib/completion/git-completion.bash)
+# Download from github (just always download to get newest one)
+source <(wget -O ~/.git-completion.bash https://raw.github.com/git/git/master/contrib/completion/git-completion.bash)
 
-source <(curl -o ~/.git-prompt.sh https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh)
+source <(wget -O ~/.git-prompt.sh https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh)
 
 # write to bash profile
 if ! grep -q 'git-completion.bash' "${profile_file}" ; then
@@ -43,4 +38,9 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 	source <(cp gitignore_global_darwin ~/.gitignore_global)
 fi
 
-source profile_file
+# Setup PS1 to keep things short and sweet
+if ! grep -q 'export PS1' "${profile_file}"; then
+  echo "Editing ${profile_file} to fix shell prompt"
+  echo "export PS1='\W\$(__git_ps1 \"(%s)\") $ '" >> "${profile_file}"
+fi
+
